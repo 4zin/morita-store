@@ -1,0 +1,18 @@
+---
+import LinkButtons from './LinkButtons.astro';
+---
+
+<nav class="flex items-center justify-center gap-x-9 bg-[#D6D6FF] px-10 py-4">
+  <LinkButtons link="/" buttonName="Inicio" />
+  <LinkButtons link="/" buttonName="Servicios" />
+  <LinkButtons link="/" buttonName="Personalización" />
+  <LinkButtons link="/" image={true} />
+  <LinkButtons link="/" buttonName="Portafolio" />
+  <LinkButtons link="/" buttonName="Contacto" />
+</nav>
+
+<style>
+  nav {
+    box-shadow: 0px 2px 10px -3px rgba(0, 0, 0, 0.75);
+  }
+</style>
