@@ -1,15 +1,58 @@
 ---
 import LinkButtons from './LinkButtons.astro';
+
+const burgerIcon = '/burgerIcon.svg';
+const closeIcon = '/closeIcon.svg';
 ---
 
-<nav class="flex items-center justify-center gap-x-9 bg-[#D6D6FF] px-10 py-4">
-  <LinkButtons link="/" buttonName="Inicio" />
-  <LinkButtons link="/" buttonName="Servicios" />
-  <LinkButtons link="/" buttonName="Personalización" />
-  <LinkButtons link="/" image={true} />
-  <LinkButtons link="/" buttonName="Portafolio" />
-  <LinkButtons link="/" buttonName="Contacto" />
+<nav
+  class="relative flex flex-col items-center justify-center bg-[#D6D6FF] px-10 py-4"
+>
+  <button id="menu-btn" class="absolute right-4 top-5 lg:hidden">
+    <img id="burger-icon" src={burgerIcon} alt="Menu Button" />
+    <img
+      id="close-icon"
+      src={closeIcon}
+      alt="Close Menu Button"
+      class="hidden"
+    />
+  </button>
+  <LinkButtons link="/" image={true} visibility="block lg:hidden w-[95px]" />
+  <div
+    id="nav-options"
+    class="animate-slide-in-top animate-duration-fast mt-3 hidden flex-col items-center gap-y-1 lg:flex lg:flex-row lg:gap-x-9"
+  >
+    <LinkButtons link="/" buttonName="Inicio" />
+    <LinkButtons link="/" buttonName="Servicios" />
+    <LinkButtons link="/" buttonName="Personalización" />
+    <LinkButtons link="/" image={true} visibility="hidden lg:block" />
+    <LinkButtons link="/" buttonName="Portafolio" />
+    <LinkButtons link="/" buttonName="Contacto" />
+  </div>
 </nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('menu-btn');
+    const navOptions = document.getElementById('nav-options');
+    const burgerIcon = document.getElementById('burger-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    menuBtn?.addEventListener('click', () => {
+      if (navOptions?.classList.contains('hidden')) {
+        navOptions?.classList.remove('hidden');
+        navOptions.classList.add('flex');
+        burgerIcon?.classList.add('hidden');
+        closeIcon?.classList.remove('hidden');
+      } else {
+        navOptions?.classList.remove('flex');
+        navOptions?.classList.add('hidden');
+        burgerIcon?.classList.remove('hidden');
+        closeIcon?.classList.add('hidden');
+      }
+    });
+  });
+</script>
 
 <style>
   nav {
