@@ -1,10 +1,11 @@
 ---
 import '@fontsource/poppins';
 import { Image } from 'astro:assets';
-const { link, buttonName, image } = Astro.props as {
+const { link, buttonName, image, visibility } = Astro.props as {
   link: string;
   buttonName?: string;
   image?: boolean;
+  visibility?: string;
 };
 ---
 
@@ -16,9 +17,10 @@ const { link, buttonName, image } = Astro.props as {
         alt="Morita Store Logo"
         width={180}
         height={100}
+        class={`${visibility}`}
       />
     ) : (
-      <button class="nav-button text-2xl font-semibold antialiased">
+      <button class="nav-button text-base font-semibold antialiased lg:text-2xl">
         {buttonName}
       </button>
     )
