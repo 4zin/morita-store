@@ -1,0 +1,34 @@
+---
+import '@fontsource/poppins';
+import { Image } from 'astro:assets';
+const { link, buttonName, image, visibility } = Astro.props as {
+  link: string;
+  buttonName?: string;
+  image?: boolean;
+  visibility?: string;
+};
+---
+
+<a href={link}>
+  {
+    image ? (
+      <Image
+        src="/ms-logo.webp"
+        alt="Morita Store Logo"
+        width={180}
+        height={100}
+        class={`${visibility}`}
+      />
+    ) : (
+      <button class="nav-button text-base font-semibold antialiased lg:text-2xl">
+        {buttonName}
+      </button>
+    )
+  }
+</a>
+
+<style>
+  .nav-button {
+    font-family: 'Poppins', sans-serif;
+  }
+</style>
