@@ -4,10 +4,8 @@ import {
   createProvider,
   createFlow,
   addKeyword,
-  utils,
 } from "@builderbot/bot";
-import { PostgreSQLAdapter as Database } from "@builderbot/database-postgres";
-import { BaileysProvider as Provider } from "@builderbot/provider-baileys";
+import { BaileysProvider } from "@builderbot/provider-baileys";
 import { adapterDB } from "./db-provider";
 
 const PORT = process.env.PORT ?? 3008;
@@ -72,7 +70,7 @@ const buyFlow = addKeyword(["5", "compra"]).addAnswer(
   }
 );
 
-const welcomeFlow = addKeyword<Provider, typeof adapterDB>([
+const welcomeFlow = addKeyword<BaileysProvider, typeof adapterDB>([
   "hi",
   "hola",
   "ola",
@@ -100,7 +98,7 @@ const welcomeFlow = addKeyword<Provider, typeof adapterDB>([
 const main = async () => {
   const adapterFlow = createFlow([welcomeFlow]);
 
-  const adapterProvider = createProvider(Provider);
+  const adapterProvider = createProvider(BaileysProvider);
 
   const { httpServer } = await createBot({
     flow: adapterFlow,
