@@ -8,6 +8,8 @@ import {
   createFlow,
   createProvider,
 } from '@builderbot/bot';
+import * as path from 'path';
+import * as fs from 'fs';
 
 const productFlow = addKeyword(['1', 'productos']).addAnswer([
   'Pijamas',
@@ -107,6 +109,17 @@ async function chatBot() {
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Ruta para servir la imagen QR
+  app.use('/qr', (req, res) => {
+    const qrFilePath = path.join(__dirname, '..', 'bot.qr.png'); // Cambiar por el nombre del archivo generado automáticamente
+    if (fs.existsSync(qrFilePath)) {
+      res.sendFile(qrFilePath);
+    } else {
+      res.status(404).send('QR code not generated yet.');
+    }
+  });
+
   await app.listen(process.env.PORT ?? 3000);
   chatBot();
 }
