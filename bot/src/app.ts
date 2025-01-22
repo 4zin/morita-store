@@ -1,4 +1,3 @@
-import { join } from "path";
 import {
   createBot,
   createProvider,
@@ -19,9 +18,20 @@ const productFlow = addKeyword(["1", "productos"]).addAnswer([
   "Productos sublimados",
 ]);
 
-const wholeSalerFLow = addKeyword(["2", "mayorista"]).addAnswer(
-  "Puedes adquirir nuestros productos al por mayor a partir de 6 unidades, colores y tallas surtidas. *Compra mínima de 200.000COP*"
+const waitAdvisor = addKeyword(["1", "sí", "si"]).addAnswer(
+  "En un momento te contactaremos con uno de nuestros asesores para brindarte la información"
 );
+
+const noAdvisor = addKeyword(["2", "no"]).addAnswer(
+  "¡Gracias por comunicarte con nosotros!"
+);
+
+const wholeSalerFLow = addKeyword(["2", "mayorista"])
+  .addAnswer(
+    "Puedes adquirir nuestros productos al por mayor a partir de 6 unidades, colores y tallas surtidas. *Compra mínima de 200.000COP*"
+  )
+  .addAnswer("¿Desea ser uno de nuestro mayoristas?")
+  .addAnswer(["1. Sí", "2. No"], null, null, [waitAdvisor, noAdvisor]);
 
 const salesFlow = addKeyword(["3", "detal", "ventas", "vtas"]).addAnswer(
   "A partir de *6 unidades* Pago anticipado por PSE."
